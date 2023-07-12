@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.ConversorControlOverview">
    <children>
       <Label alignment="CENTER" layoutY="46.0" prefHeight="17.0" prefWidth="600.0" text="Conversor de Moedas" textFill="#575e73">
          <font>
@@ -19,9 +19,9 @@
       </Label>
       <HBox layoutX="59.0" layoutY="141.0" spacing="10.0">
          <children>
-            <TextField prefHeight="34.0" prefWidth="150.0" />
-            <ChoiceBox prefHeight="34.0" prefWidth="150.0" />
-            <ChoiceBox prefHeight="34.0" prefWidth="150.0">
+            <TextField fx:id="valorField" prefHeight="34.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="seletorDeMoeda1" prefHeight="34.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="seletorDeMoeda2" prefHeight="34.0" prefWidth="150.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -34,7 +34,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="82.0" text="Calcular">
+            <Button fx:id="buttonCalcular" mnemonicParsing="false" onAction="#calcularConversao" prefHeight="34.0" prefWidth="82.0" text="Calcular">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
@@ -58,7 +58,7 @@
       <VBox layoutX="64.0" layoutY="258.0" spacing="5.0">
          <children>
             <Label prefHeight="17.0" prefWidth="236.0" text="Label" textFill="#575e73" />
-            <Label prefHeight="17.0" prefWidth="236.0" text="Label" textFill="#2d3957">
+            <Label fx:id="valorConvertidoLabel" prefHeight="17.0" prefWidth="236.0" text="Label" textFill="#2d3957">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font></Label>

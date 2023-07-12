@@ -2,6 +2,7 @@ package app;
 
 import java.io.IOException;
 
+import app.view.ConversorControlOverview;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -42,6 +43,9 @@ public class MainApp extends Application {
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			//Define esta classe como control
+			ConversorControlOverview control = loader.getController();
 			
 		} catch (IOException e) {
 			
