@@ -1,9 +1,12 @@
 package app.view;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -55,62 +58,95 @@ public class ConversorControllerOverview implements Initializable{
 		seletorDeMoeda1.setValue("Real Brasileiro");
 		seletorDeMoeda2.setValue("Dólar Americano");
 		
+		valorConvertidoLabel.setText("");
+		valorAConverterLabel.setText("");
+		cotacaoMoeda1Label.setText("");
+		cotacaoMoeda2Label.setText("");
+		
+		
 	}
 	
 	@FXML
 	public void calcularConversao() {
 		
-		double valor =  Double.parseDouble(this.valorField.getText());
-		String moedaParaConverter = this.seletorDeMoeda1.getValue();
-		String moedaConvertida = this.seletorDeMoeda2.getValue();
-		double valorConvertido;
-		double valorConvertidoPor1A = 0;
-		double valorConvertidoPor1B = 0;
-		
-		String siglaMoedaConvertida = this.conversor.getSigla(moedaConvertida);
-		String siglaMoedaParaConverter = this.conversor.getSigla(moedaParaConverter);
-		
-		//Conversão do valor do Field
-		if (moedaParaConverter != moedaConvertida) {
+		if (validacaoDeDados()) {
 			
-			if (moedaParaConverter == "Real Brasileiro") {
+			double valor =  Double.parseDouble(this.valorField.getText());
+			String moedaParaConverter = this.seletorDeMoeda1.getValue();
+			String moedaConvertida = this.seletorDeMoeda2.getValue();
+			double valorConvertido;
+			double valorConvertidoPor1A = 0;
+			double valorConvertidoPor1B = 0;
+			
+			String siglaMoedaConvertida = this.conversor.getSigla(moedaConvertida);
+			String siglaMoedaParaConverter = this.conversor.getSigla(moedaParaConverter);
+			
+			//Conversão do valor do Field
+			if (moedaParaConverter != moedaConvertida) {
 				
-				valorConvertido = this.conversor.converteParaMoedaX(valor, moedaConvertida);
-				valorConvertidoPor1A = this.conversor.converteParaMoedaX(1, moedaConvertida);
-				valorConvertidoPor1B = this.conversor.converteParaReal(1, moedaConvertida);
+				if (moedaParaConverter == "Real Brasileiro") {
+					
+					valorConvertido = this.conversor.converteParaMoedaX(valor, moedaConvertida);
+					valorConvertidoPor1A = this.conversor.converteParaMoedaX(1, moedaConvertida);
+					valorConvertidoPor1B = this.conversor.converteParaReal(1, moedaConvertida);
+					
+				} else {
+					
+					double valorConvertidoEmReal = this.conversor.converteParaReal(valor, moedaParaConverter);
+					valorConvertido = this.conversor.converteParaMoedaX(valorConvertidoEmReal, moedaConvertida);
+					
+					double valorConvertidoEmReal2 = this.conversor.converteParaReal(1, moedaParaConverter);
+					valorConvertidoPor1A = this.conversor.converteParaMoedaX(valorConvertidoEmReal2, moedaConvertida);
+					
+					double valorConvertidoEmReal3 = this.conversor.converteParaReal(1, moedaConvertida);
+					valorConvertidoPor1B = this.conversor.converteParaMoedaX(valorConvertidoEmReal3, moedaParaConverter);
+					
+				}
 				
 			} else {
 				
-				double valorConvertidoEmReal = this.conversor.converteParaReal(valor, moedaParaConverter);
-				valorConvertido = this.conversor.converteParaMoedaX(valorConvertidoEmReal, moedaConvertida);
-				
-				double valorConvertidoEmReal2 = this.conversor.converteParaReal(1, moedaParaConverter);
-				valorConvertidoPor1A = this.conversor.converteParaMoedaX(valorConvertidoEmReal2, moedaConvertida);
-				
-				double valorConvertidoEmReal3 = this.conversor.converteParaReal(1, moedaConvertida);
-				valorConvertidoPor1B = this.conversor.converteParaMoedaX(valorConvertidoEmReal3, moedaParaConverter);
+				valorConvertido = valor;
+				valorConvertidoPor1A = 1;
+				valorConvertidoPor1B = 1;
 				
 			}
 			
-		} else {
-			
-			valorConvertido = valor;
-			valorConvertidoPor1A = 1;
-			valorConvertidoPor1B = 1;
+			valorAConverterLabel.setText(Double.toString(valor) + " em " + moedaParaConverter + " =");
+			valorConvertidoLabel.setText(Double.toString(valorConvertido) + " em " + moedaConvertida);
+			cotacaoMoeda1Label.setText("1 " + siglaMoedaParaConverter + " = " + valorConvertidoPor1A + " " + siglaMoedaConvertida);
+			cotacaoMoeda2Label.setText("1 " + siglaMoedaConvertida + " = " + valorConvertidoPor1B + " " + siglaMoedaParaConverter);
 			
 		}
-		
-		valorAConverterLabel.setText(Double.toString(valor) + " em " + moedaParaConverter + " =");
-		valorConvertidoLabel.setText(Double.toString(valorConvertido) + " em " + moedaConvertida);
-		cotacaoMoeda1Label.setText("1 " + siglaMoedaParaConverter + " = " + valorConvertidoPor1A + " " + siglaMoedaConvertida);
-		cotacaoMoeda2Label.setText("1 " + siglaMoedaConvertida + " = " + valorConvertidoPor1B + " " + siglaMoedaParaConverter);
 	}
 	
+	@FXML
 	public void limparConversor(ActionEvent event) {
 	
-			mainApp = new MainApp();
-			mainApp.showConversorDeMoedasOverview(event);
+		mainApp = new MainApp();
+		mainApp.showConversorDeMoedasOverview(event);
 			
+	}
+	
+	@FXML
+	public boolean validacaoDeDados() {
+		
+		try {
+			
+			double valor =  Double.parseDouble(this.valorField.getText());
+			return true;
+			
+		} catch (NumberFormatException e) {
+			
+			Alert alert = new Alert(AlertType.ERROR);
+				valorField.setText("");
+				alert.setTitle("Campo Inválido");
+				alert.setHeaderText("Por favor, corrija os campos inválidos.");
+				alert.setContentText("Digite apenas valores numéricos!");
+			alert.showAndWait();
+				
+			return false;
+		}
+		
 	}
 	
 }
