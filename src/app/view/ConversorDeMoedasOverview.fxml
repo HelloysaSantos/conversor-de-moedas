@@ -30,11 +30,11 @@
       </HBox>
       <HBox layoutX="210.0" layoutY="200.0" spacing="5.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="82.0" text="Limpar">
+            <Button mnemonicParsing="false" onAction="#limparConversor" prefHeight="34.0" prefWidth="82.0" text="Limpar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button fx:id="buttonCalcular" mnemonicParsing="false" onAction="#calcularConversao" prefHeight="34.0" prefWidth="82.0" text="Calcular">
+            <Button mnemonicParsing="false" onAction="#calcularConversao" prefHeight="34.0" prefWidth="82.0" text="Calcular">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
@@ -55,18 +55,21 @@
             <Font size="11.0" />
          </font>
       </Label>
-      <VBox layoutX="64.0" layoutY="258.0" spacing="5.0">
+      <VBox layoutX="64.0" layoutY="258.0" prefHeight="104.0" prefWidth="470.0" spacing="5.0">
          <children>
-            <Label prefHeight="17.0" prefWidth="236.0" text="Label" textFill="#575e73" />
-            <Label fx:id="valorConvertidoLabel" prefHeight="17.0" prefWidth="236.0" text="Label" textFill="#2d3957">
+            <Label fx:id="valorAConverterLabel" prefHeight="17.0" prefWidth="470.0" text="Label" textFill="#575e73">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+            <Label fx:id="valorConvertidoLabel" prefHeight="30.0" prefWidth="470.0" text="Label" textFill="#2d3957">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font></Label>
-            <Label prefHeight="17.0" prefWidth="236.0" text="Label" textFill="#89929f">
+            <Label fx:id="cotacaoMoeda1Label" prefHeight="21.0" prefWidth="488.0" text="Label" textFill="#89929f">
                <font>
                   <Font size="15.0" />
                </font></Label>
-            <Label prefHeight="17.0" prefWidth="236.0" text="Label" textFill="#89929f">
+            <Label fx:id="cotacaoMoeda2Label" prefHeight="21.0" prefWidth="486.0" text="Label" textFill="#89929f">
                <font>
                   <Font size="15.0" />
                </font></Label>
