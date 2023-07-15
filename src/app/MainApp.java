@@ -2,7 +2,7 @@ package app;
 
 import java.io.IOException;
 
-import app.view.ConversorControlOverview;
+import app.view.ConversorControllerOverview;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -22,7 +22,7 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Conversor de Moedas");
+		this.primaryStage.setTitle("Menu");
 		
 		showConversorDeMoedasOverview();
 	}
@@ -45,7 +45,7 @@ public class MainApp extends Application {
 			primaryStage.show();
 			
 			//Define esta classe como control
-			ConversorControlOverview control = loader.getController();
+			ConversorControllerOverview control = loader.getController();
 			
 		} catch (IOException e) {
 			

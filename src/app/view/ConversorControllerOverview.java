@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.fxml.Initializable;
 
-public class ConversorControlOverview implements Initializable{
+public class ConversorControllerOverview implements Initializable{
 	
 	private ConversorDeMoedaUtil conversor;
 	
@@ -26,17 +26,11 @@ public class ConversorControlOverview implements Initializable{
 	private ChoiceBox<String> seletorDeMoeda2;
 	
 	@FXML
-	private Button buttonCalcular;
-	
-	@FXML
-	private Button buttonLimpar;
-	
-	@FXML
 	private Label valorConvertidoLabel;
 	
 	private String[] nomeMoedas = {"Reais", "Dolar", "Libras Esterlinas", "Peso Argentino", "Peso Chileno"};
 	
-	public ConversorControlOverview() {
+	public ConversorControllerOverview() {
 		conversor = new ConversorDeMoedaUtil();
 	}
 
