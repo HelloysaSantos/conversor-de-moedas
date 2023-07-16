@@ -36,7 +36,7 @@ public class MainApp extends Application {
 	}
 	
 	public void showOverviewAndController(String src, Initializable controller) {
-		
+		 
 		try {
 			
 			//Carrega o arquivo FXML

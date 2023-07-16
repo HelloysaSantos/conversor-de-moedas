@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import app.MainApp;
+import app.model.Moeda;
 import app.util.ConversorDeMoedaUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,16 +45,15 @@ public class ConversorControllerOverview implements Initializable{
 	
 	private MainApp mainApp;
 	
-	private String[] nomeMoedas = {"Real Brasileiro", "Dólar Americano", "Libras Esterlinas", "Peso Argentino", "Peso Chileno"};
-	
 	public ConversorControllerOverview() {
 		conversor = new ConversorDeMoedaUtil();
+		
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		this.seletorDeMoeda1.getItems().addAll(nomeMoedas);
-		this.seletorDeMoeda2.getItems().addAll(nomeMoedas);
+		this.seletorDeMoeda1.getItems().addAll(conversor.getNomeTodasAsMoedas());
+		this.seletorDeMoeda2.getItems().addAll(conversor.getNomeTodasAsMoedas());
 		
 		seletorDeMoeda1.setValue("Real Brasileiro");
 		seletorDeMoeda2.setValue("Dólar Americano");
@@ -71,45 +71,22 @@ public class ConversorControllerOverview implements Initializable{
 		
 		if (validacaoDeDados()) {
 			
+			//Transforma valor de String em double
 			double valor =  Double.parseDouble(this.valorField.getText());
+			
 			String moedaParaConverter = this.seletorDeMoeda1.getValue();
 			String moedaConvertida = this.seletorDeMoeda2.getValue();
 			double valorConvertido;
 			double valorConvertidoPor1A = 0;
 			double valorConvertidoPor1B = 0;
 			
+			//Conversão do valor do Field
+			valorConvertido = conversor.getValorConvertido(valor, moedaParaConverter, moedaConvertida);
+			valorConvertidoPor1A = conversor.getValorConvertido(1, moedaParaConverter, moedaConvertida);
+			valorConvertidoPor1B = conversor.getValorConvertido(1, moedaConvertida, moedaParaConverter);
+			
 			String siglaMoedaConvertida = this.conversor.getSigla(moedaConvertida);
 			String siglaMoedaParaConverter = this.conversor.getSigla(moedaParaConverter);
-			
-			//Conversão do valor do Field
-			if (moedaParaConverter != moedaConvertida) {
-				
-				if (moedaParaConverter == "Real Brasileiro") {
-					
-					valorConvertido = this.conversor.converteParaMoedaX(valor, moedaConvertida);
-					valorConvertidoPor1A = this.conversor.converteParaMoedaX(1, moedaConvertida);
-					valorConvertidoPor1B = this.conversor.converteParaReal(1, moedaConvertida);
-					
-				} else {
-					
-					double valorConvertidoEmReal = this.conversor.converteParaReal(valor, moedaParaConverter);
-					valorConvertido = this.conversor.converteParaMoedaX(valorConvertidoEmReal, moedaConvertida);
-					
-					double valorConvertidoEmReal2 = this.conversor.converteParaReal(1, moedaParaConverter);
-					valorConvertidoPor1A = this.conversor.converteParaMoedaX(valorConvertidoEmReal2, moedaConvertida);
-					
-					double valorConvertidoEmReal3 = this.conversor.converteParaReal(1, moedaConvertida);
-					valorConvertidoPor1B = this.conversor.converteParaMoedaX(valorConvertidoEmReal3, moedaParaConverter);
-					
-				}
-				
-			} else {
-				
-				valorConvertido = valor;
-				valorConvertidoPor1A = 1;
-				valorConvertidoPor1B = 1;
-				
-			}
 			
 			valorAConverterLabel.setText(Double.toString(valor) + " em " + moedaParaConverter + " =");
 			valorConvertidoLabel.setText(Double.toString(valorConvertido) + " em " + moedaConvertida);
