@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import app.MainApp;
+import app.model.Moeda;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,14 +23,10 @@ public class MenuControllerOverview implements Initializable{
 	
 	private Scene scene;
 	
-	private Parent root;
-	
 	@FXML
 	private ChoiceBox <String> tipoConversorChoiceBox;
 	
 	private String[] ListaDeConversores = {"Conversor de Moedas", "Conversor de Temperatura"};
-	
-	private MainApp mainApp;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -39,14 +36,26 @@ public class MenuControllerOverview implements Initializable{
 		
 	}
 	
+	public void setStage(Stage stage) {
+
+		this.stage = stage;
+		
+	}
+	
 	@FXML
-	public void showConversorOverview(ActionEvent event) {
+	public void showConversorOverview() {
 		
 		if (tipoConversorChoiceBox.getValue() == "Conversor de Moedas") {
-			mainApp = new MainApp();
-			mainApp.showConversorDeMoedasOverview(event);
+			MainApp mainApp = new MainApp("");
+			mainApp.showConversorDeMoedasOverview();
 			
 		}
+	}
+	
+	public void cancelarButton() {
+		
+		stage.close();
+		
 	}
 	
 }

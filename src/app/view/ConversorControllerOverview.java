@@ -1,10 +1,12 @@
 package app.view;
 
 import javafx.scene.control.Label;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.awt.event.KeyEvent;
 import java.net.URL;
@@ -43,27 +45,29 @@ public class ConversorControllerOverview implements Initializable{
 	@FXML
 	private Label cotacaoMoeda2Label;
 	
-	private MainApp mainApp;
+	private boolean okClicked = false;
+	
+	private Stage conversorStage;
+	
+	private Moeda moeda;
 	
 	public ConversorControllerOverview() {
 		conversor = new ConversorDeMoedaUtil();
+		moeda = new Moeda();
 		
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		this.seletorDeMoeda1.getItems().addAll(conversor.getNomeTodasAsMoedas());
-		this.seletorDeMoeda2.getItems().addAll(conversor.getNomeTodasAsMoedas());
 		
-		seletorDeMoeda1.setValue("Real Brasileiro");
-		seletorDeMoeda2.setValue("Dólar Americano");
+		this.seletorDeMoeda1.getItems().addAll(moeda.getNomeTodasAsMoedas());
+		this.seletorDeMoeda2.getItems().addAll(moeda.getNomeTodasAsMoedas());
 		
-		valorConvertidoLabel.setText("");
-		valorAConverterLabel.setText("");
-		cotacaoMoeda1Label.setText("");
-		cotacaoMoeda2Label.setText("");
-		
-		
+		limparConversor();	
+	}
+	
+	public void setConversorStage(Stage conversorStage) {
+		this.conversorStage = conversorStage;
 	}
 	
 	@FXML
@@ -97,10 +101,16 @@ public class ConversorControllerOverview implements Initializable{
 	}
 	
 	@FXML
-	public void limparConversor(ActionEvent event) {
-	
-		mainApp = new MainApp();
-		mainApp.showConversorDeMoedasOverview(event);
+	public void limparConversor() {
+		
+		seletorDeMoeda1.setValue("Real Brasileiro");
+		seletorDeMoeda2.setValue("Dólar Americano");
+		
+		valorField.setText("");
+		valorConvertidoLabel.setText("");
+		valorAConverterLabel.setText("");
+		cotacaoMoeda1Label.setText("");
+		cotacaoMoeda2Label.setText("");;
 			
 	}
 	
@@ -126,4 +136,15 @@ public class ConversorControllerOverview implements Initializable{
 		
 	}
 	
+	@FXML
+	public void voltarButton(ActionEvent event) {
+		
+		conversorStage.close();
+		
+	}
+
+	public boolean isOkClicked() {
+		
+		return okClicked;
+	}
 }

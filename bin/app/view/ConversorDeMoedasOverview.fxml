@@ -75,7 +75,7 @@
                </font></Label>
          </children>
       </VBox>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Voltar" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#voltarButton" text="Voltar" />
       <Button layoutX="479.0" layoutY="14.0" mnemonicParsing="false" text="Configurações" />
    </children>
 </AnchorPane>
